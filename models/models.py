@@ -25,3 +25,17 @@ userdata = Table(
            )
 
 )
+
+
+
+
+blog = Table(
+    'blog',
+    metadata,
+    Column('id', Integer, primary_key=True, autoincrement=True),
+    Column('title', String(length=150), nullable=False),
+    Column('description', Text),
+    Column('created_date', TIMESTAMP, default=datetime.utcnow),
+    Column('is_active', Boolean, default=True),
+    Column('view_count', Integer, default=0)
+)
