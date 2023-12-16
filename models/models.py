@@ -58,6 +58,20 @@ product = Table(
 
 )
 
+
+more_about_product = Table(
+    'more_about_product',
+    metadata,
+    Column('id', Integer, primary_key=True, autoincrement=True),
+    Column('product_id', ForeignKey('product.id')),
+    Column('version', String),
+    Column('updated_at', TIMESTAMP, default=datetime.utcnow()),
+    Column('frameworks', String),
+    Column('compatible_with', String),
+    Column('tags', String)
+)
+
+
 category = Table(
     'category',
     metadata,
