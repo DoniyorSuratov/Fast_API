@@ -27,8 +27,8 @@ def generate_token(user_id: int):
         'user_id': user_id,
         'jti': jti_refresh
     }
-    access_token = jwt.encode(payload_access, SECRET, algorithm=algorithm)
-    refresh_token = jwt.encode(payload_refresh, SECRET, algorithm=algorithm)
+    access_token = jwt.encode(payload_access, str(SECRET), algorithm=algorithm)
+    refresh_token = jwt.encode(payload_refresh, str(SECRET), algorithm=algorithm)
     return {
         'access': access_token,
         'refresh': refresh_token

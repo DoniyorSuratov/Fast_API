@@ -1,4 +1,7 @@
 from datetime import datetime
+import enum
+
+
 from sqlalchemy import (Column,
                         Table,
                         Integer,
@@ -7,7 +10,9 @@ from sqlalchemy import (Column,
                         Boolean,
                         MetaData,
                         TIMESTAMP,
+                        ForeignKey,
                         Boolean,
+                        Enum,
                         DateTime)
 metadata=MetaData()
 
@@ -29,13 +34,33 @@ userdata = Table(
 
 
 
-blog = Table(
-    'blog',
+# class CategoryEnum(enum.Enum):
+#     adminDashboard = 'Admin & Dashboard'
+#     bootstrap5 = 'Bootstrap5'
+#     ecomerce = 'eComerce'
+#     tailwindCSS = 'Tailwind CSS'
+#     landingPages = 'Landing Pages'
+#     bussinesCorporate = 'Business & Corporate'
+#     portfolio = 'Portfolio'
+#     educational = 'Educational'
+
+product = Table(
+    'product',
     metadata,
     Column('id', Integer, primary_key=True, autoincrement=True),
-    Column('title', String(length=150), nullable=False),
+    Column('name', String),
     Column('description', Text),
-    Column('created_date', TIMESTAMP, default=datetime.utcnow),
-    Column('is_active', Boolean, default=True),
-    Column('view_count', Integer, default=0)
+    # Column('category', Enum(CategoryEnum)),
+    Column('created_at', TIMESTAMP, default=datetime.utcnow()),
+    Column('category_id', ForeignKey('category.id')),
+    Column('user_id', ForeignKey('userdata.id')),
+    Column('status', String, default='Free')
+
+)
+
+category = Table(
+    'category',
+    metadata,
+    Column('id', Integer, primary_key=True, autoincrement=True),
+    Column('name', String)
 )

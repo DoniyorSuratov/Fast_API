@@ -28,7 +28,7 @@ async def register(user: User, session: AsyncSession = Depends(get_async_session
         if not select(userdata).where(userdata.c.email == user.email).exists:
             raise HTTPException(status_code=400, detail='Email already in use!')
         password = pwd_context.hash(user.password1)
-        user_in_db = UserInDB(**dict(user), password=password,created_at=datetime.utcnow() )
+        user_in_db = UserInDB(**dict(user), password=password,created_at=datetime.utcnow())
         query = insert(userdata).values(**dict(user_in_db))
         await session.execute(query)
         await session.commit()
