@@ -54,21 +54,13 @@ product = Table(
     Column('created_at', TIMESTAMP, default=datetime.utcnow()),
     Column('category_id', ForeignKey('category.id')),
     Column('user_id', ForeignKey('userdata.id')),
-    Column('status', String, default='Free')
-
-)
-
-
-more_about_product = Table(
-    'more_about_product',
-    metadata,
-    Column('id', Integer, primary_key=True, autoincrement=True),
-    Column('product_id', ForeignKey('product.id')),
+    Column('status', String, default='Free'),
     Column('version', String),
-    Column('updated_at', TIMESTAMP, default=datetime.utcnow()),
+    Column('updated_at', TIMESTAMP, default=datetime),
     Column('frameworks', String),
     Column('compatible_with', String),
     Column('tags', String)
+
 )
 
 
