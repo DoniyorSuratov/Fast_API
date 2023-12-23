@@ -49,6 +49,7 @@ product = Table(
     metadata,
     Column('id', Integer, primary_key=True, autoincrement=True),
     Column('name', String),
+    Column('image', String),
     Column('description', Text),
     # Column('category', Enum(CategoryEnum)),
     Column('created_at', TIMESTAMP, default=datetime.utcnow()),
@@ -59,7 +60,10 @@ product = Table(
     Column('updated_at', TIMESTAMP, default=datetime),
     Column('frameworks', String),
     Column('compatible_with', String),
-    Column('tags', String)
+    Column('tags', String),
+    Column('filepath', String),
+    Column('hash', String, unique=True)
+
 
 )
 
@@ -69,4 +73,15 @@ category = Table(
     metadata,
     Column('id', Integer, primary_key=True, autoincrement=True),
     Column('name', String)
+)
+
+
+cart = Table(
+    'cart',
+    metadata,
+    Column('id', Integer, primary_key=True, autoincrement=True),
+    Column('cart_owner_user_id', ForeignKey('userdata.id')),
+    Column('product_id', ForeignKey('product.id')),
+    Column('license', String, default='Standart')
+
 )

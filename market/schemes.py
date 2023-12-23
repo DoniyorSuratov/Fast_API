@@ -11,6 +11,7 @@ class MainProductsScheme(BaseModel):
     status: str
     category: str
     user_id: int
+    image: str | None
 
 
 class AboutProductsScheme(BaseModel):
@@ -21,4 +22,14 @@ class AboutProductsScheme(BaseModel):
     tags: str | None
     name:str | None
     created_at: datetime | None
+    image: str | None
+
+class CartAddProductsScheme(BaseModel):
+    product_id:int
+
+
+class CartShowProductsScheme(BaseModel):
+    owner_id:int
+    product_info: dict
+    license: str
 
