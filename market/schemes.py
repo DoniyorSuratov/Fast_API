@@ -4,6 +4,8 @@ from pydantic import BaseModel
 from sqlalchemy import text
 
 from auth.schemes import UserInfo
+from pydantic import BaseModel, Field
+from fastapi import UploadFile, Query
 
 
 class MainProductsScheme(BaseModel):
@@ -12,7 +14,7 @@ class MainProductsScheme(BaseModel):
     description: str
     created_at: datetime
     status: str
-    category: str
+    category: str = ""
     user_id: int
     image: str | None
 
@@ -48,4 +50,20 @@ class BlogGETScheme(BaseModel):
     description: str
     created_at: datetime
     blog_owner: UserInfo
+class AddProductScheme(BaseModel):
+    frameworks: str
+    compatible_with: str
+    tags: str
+    name: str
+    description: str
+    category_id: int
+    version: str
+
+
+class RequestDataScheme(BaseModel):
+    frameworks: str | None=None
+    tags: str | None=None
+    categories: int | None=None
+
+
 
