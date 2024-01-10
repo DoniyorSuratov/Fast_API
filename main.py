@@ -7,7 +7,7 @@ from fastapi.staticfiles import StaticFiles
 from auth.auth import register_router
 from database import get_async_session
 from market.market import market_router
-from schemes import Blog, BlogPost
+
 
 app = FastAPI()
 router = APIRouter()
