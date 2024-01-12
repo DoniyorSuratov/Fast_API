@@ -2,8 +2,8 @@ import secrets
 
 import jwt
 from datetime import datetime, timedelta
-from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from config import SECRET
+from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
 from fastapi import Depends, HTTPException
 
 algorithm = 'HS256'
@@ -29,6 +29,7 @@ def generate_token(user_id: int):
     }
     access_token = jwt.encode(payload_access, str(SECRET), algorithm=algorithm)
     refresh_token = jwt.encode(payload_refresh, str(SECRET), algorithm=algorithm)
+
     return {
         'access': access_token,
         'refresh': refresh_token

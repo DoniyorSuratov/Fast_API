@@ -13,8 +13,9 @@ from sqlalchemy import (Column,
                         ForeignKey,
                         Boolean,
                         Enum,
-                        DateTime)
-metadata=MetaData()
+                        )
+from datetime import datetime
+metadata = MetaData()
 
 userdata = Table(
     'userdata',
@@ -26,13 +27,9 @@ userdata = Table(
     Column('phone', String),
     Column('username', String),
     Column('password', String),
-    Column('created_at', TIMESTAMP, default=datetime.utcnow()
-           )
+    Column('created_at', TIMESTAMP, default=datetime.utcnow())
 
 )
-
-
-
 
 # class CategoryEnum(enum.Enum):
 #     adminDashboard = 'Admin & Dashboard'
@@ -85,3 +82,23 @@ cart = Table(
     Column('license', String, default='Standart')
 
 )
+
+subscriber = Table(
+    'subscriber',
+    metadata,
+    Column('id', Integer, primary_key=True, autoincrement=True),
+    Column('email', String, unique=True),
+)
+
+blog = Table(
+    'blog',
+    metadata,
+    Column('id', Integer, primary_key=True, autoincrement=True),
+    Column('title', String(length=150), nullable=False),
+    Column('description', Text),
+    Column('created_at', TIMESTAMP, default=datetime.utcnow()),
+    Column('blog_owner', ForeignKey('userdata.id')),
+)
+
+
+
