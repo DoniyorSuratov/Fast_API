@@ -1,6 +1,4 @@
-import os
-import secrets
-import jwt
+
 from datetime import datetime, timedelta
 
 from .schemes import UserInfo, User, UserInDB, UserLogin
@@ -11,7 +9,6 @@ from sqlalchemy import select, insert
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.exc import NoResultFound
 from fastapi import Depends, APIRouter, HTTPException
-from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from passlib.context import CryptContext
 
 from .utls import generate_token, verify_token
@@ -27,8 +24,8 @@ async def login(user: UserLogin, session: AsyncSession = Depends(get_async_sessi
     try:
         user_data = user__data.first()
     except NoResultFound:
-        raise HTTPException(status_code=404,detail='Username or password is incorrect!')
-    if pwd_context.verify(user.password,user_data.password):
+        raise HTTPException(status_code=404, detail='Username or password is incorrect!')
+    if pwd_context.verify(user.password, user_data.password):
         token = generate_token(user_data.id)
         return token
     else:
@@ -67,7 +64,7 @@ async def register(user: User, session: AsyncSession = Depends(get_async_session
     user_info = UserInfo(**dict(user))
     return dict(user_info)
 
-#
+
 @register_router.get('/user-info', response_model=UserInfo)
 async def user_info(
         token: dict = Depends(verify_token),
@@ -83,7 +80,6 @@ async def user_info(
         return user_data
     except NoResultFound:
         raise HTTPException(status_code=404, detail='User is not found!')
-#
 
 
 

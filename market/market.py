@@ -1,26 +1,14 @@
 import os
 
 from datetime import timedelta, datetime
-SENDER_EMAIL = os.getenv('SENDER_EMAIL')
-SMTP_CODE = os.getenv('SMTP_CODE')
-
 
 import smtplib
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 
-from typing import List
-
 import json
-from sqlalchemy import select, insert, update, delete
-from .schemes import (MainProductsScheme,
-                      AboutProductsScheme,
-                      CartAddProductsScheme,
-                      CartShowProductsScheme, BlogScheme, BlogGETScheme, )
-from sqlalchemy.ext.asyncio import AsyncSession
-from database import get_async_session
+
 from models.models import product, cart, subscriber, blog, userdata
-from fastapi import Depends, APIRouter, HTTPException
 
 import secrets
 from datetime import timedelta
@@ -30,7 +18,8 @@ from .schemes import (
     MainProductsScheme,
     AboutProductsScheme,
     CartAddProductsScheme,
-    CartShowProductsScheme, AddProductScheme, RequestDataScheme
+    CartShowProductsScheme, AddProductScheme, RequestDataScheme,
+    BlogGETScheme, BlogScheme
 )
 from sqlalchemy.ext.asyncio import AsyncSession
 from database import get_async_session
@@ -43,13 +32,11 @@ from fastapi.responses import FileResponse
 import aiofiles
 
 market_router = APIRouter()
+SENDER_EMAIL = os.getenv('SENDER_EMAIL')
+SMTP_CODE = os.getenv('SMTP_CODE')
 
-
-
-@market_router.get('/all-products', response_model=List[MainProductsScheme])    #gets all products list
 
 @market_router.get('/all-products', response_model=List[MainProductsScheme])  # gets all products list
-
 async def get_top_freebies(session: AsyncSession = Depends(get_async_session)):
     try:
         query = select(product)
@@ -139,8 +126,6 @@ async def show_cart(
 
                     session: AsyncSession = Depends(get_async_session),
                     token: dict = Depends(verify_token)):
-        session: AsyncSession = Depends(get_async_session),
-        token: dict = Depends(verify_token)):
     if token is None:
         raise HTTPException(status_code=403, detail='Forbidden')
 
@@ -148,7 +133,6 @@ async def show_cart(
     data = await session.execute(query)
     get_data = data.all()
 
-    product_list =[]
     product_list = []
     for pro in get_data:
         query2 = select(product).where(product.c.id == pro.product_id)

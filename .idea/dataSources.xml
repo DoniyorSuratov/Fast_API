@@ -1,18 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="fast_api@localhost [2]" uuid="82d69303-e0ad-4d5c-bd4e-98acac107541">
+    <data-source source="LOCAL" name="fast_api_db@localhost" uuid="4c5cb6dc-7424-496f-9744-b45dd8f88fb8">
       <driver-ref>postgresql</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>org.postgresql.Driver</jdbc-driver>
-      <jdbc-url>jdbc:postgresql://localhost:5432/fast_api</jdbc-url>
-      <working-dir>$ProjectFileDir$</working-dir>
-    </data-source>
-    <data-source source="LOCAL" name="pdp_mob_db@localhost" uuid="e1a7a583-f120-4946-a22c-0fdede6dd304">
-      <driver-ref>postgresql</driver-ref>
-      <synchronize>true</synchronize>
-      <jdbc-driver>org.postgresql.Driver</jdbc-driver>
-      <jdbc-url>jdbc:postgresql://localhost:5432/pdp_mob_db</jdbc-url>
+      <jdbc-url>jdbc:postgresql://localhost:5432/fast_api_db</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
   </component>
