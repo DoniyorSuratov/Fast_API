@@ -1,7 +1,7 @@
 from datetime import datetime
 from typing import List
-from pydantic import BaseModel
 from sqlalchemy import text
+from sqlalchemy.dialects.oracle import oracledb
 
 from auth.schemes import UserInfo
 from pydantic import BaseModel, Field
@@ -16,18 +16,19 @@ class MainProductsScheme(BaseModel):
     status: str
     category: str = ""
     user_id: int
-    image: str | None
+    image: str = None
 
 
 class AboutProductsScheme(BaseModel):
-    version: str | None
-    updated_at: datetime | None
-    frameworks: str | None
-    compatible_with: str | None
-    tags: str | None
-    name: str | None
-    created_at: datetime | None
-    image: str | None
+    version: str = None
+    updated_at: datetime = None
+    frameworks: str = None
+    compatible_with: str = None
+    tags: str = None
+    name: str = None
+    created_at: datetime = None
+    image: str = None
+
 
 class CartAddProductsScheme(BaseModel):
     product_id:int
@@ -50,6 +51,8 @@ class BlogGETScheme(BaseModel):
     description: str
     created_at: datetime
     blog_owner: UserInfo
+
+
 class AddProductScheme(BaseModel):
     frameworks: str
     compatible_with: str
@@ -61,9 +64,9 @@ class AddProductScheme(BaseModel):
 
 
 class RequestDataScheme(BaseModel):
-    frameworks: str | None=None
-    tags: str | None=None
-    categories: int | None=None
+    frameworks: str = None
+    tags: str = None
+    categories: int = None
 
 
 
