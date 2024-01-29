@@ -136,9 +136,11 @@ async def add_to_cart(
 
 @market_router.get('/cart/', response_model=List[CartShowProductsScheme])  # show products in cart
 async def show_cart(
+
+                    session: AsyncSession = Depends(get_async_session),
+                    token: dict = Depends(verify_token)):
         session: AsyncSession = Depends(get_async_session),
         token: dict = Depends(verify_token)):
-
     if token is None:
         raise HTTPException(status_code=403, detail='Forbidden')
 
@@ -188,7 +190,7 @@ async def download_template(
 
     file_url = os.path.join(f'{BASE_DIR}/media/{file_data.filepath}')
     file_name = file_data.filepath.split('/')[-1]
-
+    print(file_url)
     return FileResponse(path=file_url, media_type="application/octet-stream", filename=file_name)
 
 
